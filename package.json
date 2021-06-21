@@ -1,0 +1,22 @@
+{
+  "name": "dev",
+  "version": "1.0.0",
+  "description": "nodejs_dev",
+  "main": "index.js",
+  "scripts": {
+    "test": "test_index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjsahr0099/nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjsahr0099/nodejs/issues"
+  },
+  "homepage": "https://github.com/tjsahr0099/nodejs#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
