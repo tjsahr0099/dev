@@ -1,8 +1,0 @@
-1. 모듈 생성
-nest generate module user
-
-2. 컨트롤러 생성
-nest generate controller /user/controller
-
-3. 서비스 생성
-nest generate service /user/service/user
