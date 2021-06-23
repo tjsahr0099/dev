@@ -1,39 +1,59 @@
 git 명령어
 -------------
 1. git 폴더 생성 
-``` git init ```
+``` 
+git init 
+```
 
 2. git remote 연동
-``` git remote add "url" ```
+``` 
+git remote add "url" 
+```
 
 3. git clone
-``` git pull origin master ```
+``` 
+git pull origin master 
+```
 
 4. git on stage
-``` git add * ```
+``` 
+git add * 
+```
 
 5. git commit
-``` git commit -m "message" ```
+``` 
+git commit -m "message" 
+```
 
 6. git push
-``` git push origin master ```
+``` 
+git push origin master 
+```
 
 
 npm 명령어
 -------------
 1. 현재 package.json 에 있는 dependencies install
-``` npm install ```
+``` 
+npm install 
+```
 
 nestjs 명령어
 -------------
 1. 모듈 생성
-``` nest generate module user ```
+``` 
+nest generate module user 
+```
 
 2. 컨트롤러 생성
-``` nest generate controller user ```
+``` 
+nest generate controller user 
+```
 
 3. 서비스 생성
-``` nest generate service user ```
+``` 
+nest generate service user 
+```
 
 
 - node 프로젝트 생성 과정
