@@ -40,23 +40,19 @@ npm 명령어
 
 nestjs 명령어
 -------------
-<1> 모듈 생성
+<1> 생성
 ```bash
-> nest generate module user 
+> nest generate <element> <name> 
 ```
 
-<2> 컨트롤러 생성
+<2> 서버 start
 ```bash 
-> nest generate controller user 
-```
-
-<3> 서비스 생성
-```bash
-> nest generate service user 
+> nest start 
 ```
 
 
 node 프로젝트 생성 과정
 ----------
-<1> git에서 pull받는다.
-<2> node_modules 폴더가 존재할 경우 제거하고 npm install 한다.
+1. git에서 pull받는다.
+2. node_modules 폴더가 존재할 경우 제거하고 npm install 한다.
+3. nest g res <모듈명> 으로 모듈을 생성한다. ( res생성 시 m,co,s,dto,entity 포함 )
