@@ -9,6 +9,16 @@ git remote add "url"
 <3> git clone
 git pull origin master
 
+<4> git on stage
+git add *
+
+<5> git commit
+git commin -m "message"
+
+<6> git push
+git push origin master
+
+
 npm 명령어
 -------------
 <1> 현재 package.json 에 있는 dependencies install
