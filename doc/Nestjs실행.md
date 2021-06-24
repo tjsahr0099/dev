@@ -30,6 +30,11 @@ git 명령어
 > git push origin master 
 ```
 
+<6> git stash
+```bash 
+> git stash ( 추가예정 )
+```
+
 
 npm 명령어
 -------------
@@ -54,5 +59,11 @@ nestjs 명령어
 node 프로젝트 생성 과정
 ----------
 1. git에서 pull받는다.
-2. node_modules 폴더가 존재할 경우 제거하고 npm install 한다.
+2. node_modules 폴더가 존재할 경우 제거하고 npm install 한다. ( install시 package.json에 dependency가 모두 install된다. )
 3. nest g res <모듈명> 으로 모듈을 생성한다. ( res생성 시 m,co,s,dto,entity 포함 )
+
+
+
+개념설명
+------------
+![entity](./image/Entity개념.PNG)
