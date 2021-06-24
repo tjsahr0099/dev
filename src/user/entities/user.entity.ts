@@ -1,15 +1,24 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn} from "typeorm";
 
-@Entity('TBL_USER')
+@Entity()
 export class User {
 
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({
+        length: 20
+    })
     name: string;
 
-    @Column()
+    @Column({
+        length: 20
+    })
     email: string;
+
+    @CreateDateColumn({
+        name: "create_date"
+    })
+    createDate: Date;
 
 }
