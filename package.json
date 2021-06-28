@@ -28,6 +28,7 @@
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/sequelize": "^0.2.0",
     "@nestjs/typeorm": "^7.1.5",
+    "dotenv": "^10.0.0",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "reflect-metadata": "^0.1.13",
