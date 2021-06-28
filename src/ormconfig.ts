@@ -1,12 +1,20 @@
 import { ConnectionOptions } from 'typeorm';
+import { ConfigModule } from '@nestjs/config';
+
+ConfigModule.forRoot({
+  isGlobal: true, 
+  envFilePath: '.env',
+});
 
 const config: ConnectionOptions = {
   type: 'mysql',
+ 
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
+ 
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
 
   // We are using migrations, synchronize should be set to false.
@@ -28,5 +36,4 @@ const config: ConnectionOptions = {
       migrationsDir: 'src/migrations',
   },
 };
-
 export = config
