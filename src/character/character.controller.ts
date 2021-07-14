@@ -8,8 +8,14 @@ export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}
 
   @Post()
-  create(@Body() createCharacterDto: CreateCharacterDto) {
-    return this.characterService.create(createCharacterDto);
+  async create(@Body() createCharacterDto: CreateCharacterDto) {
+    console.log(createCharacterDto);
+    await this.characterService.create(createCharacterDto);
+    return Object.assign({
+      data: { ...createCharacterDto },
+      statusCode: 201,
+      message: `created successfully`
+    });
   }
 
   @Get()
@@ -23,12 +29,22 @@ export class CharacterController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
-    return this.characterService.update(+id, updateCharacterDto);
+  async update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
+    await this.characterService.update(+id, updateCharacterDto);
+    return Object.assign({
+      data: { ...updateCharacterDto },
+      statusCode: 201,
+      message: `updated successfully`
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.characterService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await  this.characterService.remove(+id);
+    return Object.assign({
+      data: { id: id },
+      statusCode: 201,
+      message: `deleted successfully`
+    });
   }
 }

@@ -1,11 +1,12 @@
-import { IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString, IsObject } from "class-validator";
+import { User } from "src/user/entities/user.entity";
 
 export class CreateCharacterDto {
 
     @IsString()
     readonly name: string;
 
-    @IsNumber()
-    readonly userId: number;
+    @IsObject()
+    readonly user: User;
     
 }
