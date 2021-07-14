@@ -7,6 +7,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // async : 해당 함수를 비동기로 만듬.
+  // await : 
+  // Promise : 
+
   @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<string> {
     await this.userService.create(createUserDto);
@@ -29,7 +33,7 @@ export class UserController {
 
   @Patch(':id')
   async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto): Promise<string> {
-    console.log(await this.userService.update(+id, updateUserDto));
+    await this.userService.update(+id, updateUserDto);
     return Object.assign({
       data: { ...updateUserDto },
       statusCode: 201,

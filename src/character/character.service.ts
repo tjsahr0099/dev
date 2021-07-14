@@ -33,7 +33,7 @@ export class CharacterService {
   }
 
   // userId로 character 목록 조회
-  getCharacterByUserId(userId: number): Promise<Character[]> {
-    return this.characterRepository.find({ userId: userId });
-  }
+  // getCharacterByUserId(userId: number): Promise<Character[]> {
+  //   return this.characterRepository.find({ userId: userId });
+  // }
 }
