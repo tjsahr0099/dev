@@ -18,6 +18,7 @@ export class User extends CommonEntity {
     })
     email: string; 
 
+    //유저1 - 캐릭터N 간 관계 생성
     @OneToMany(type => Character, character => character.user)
     characters: Character[]
 

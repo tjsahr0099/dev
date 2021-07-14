@@ -18,6 +18,7 @@ export class Character extends CommonEntity  {
     })
     name: string;
  
+    //캐릭터N - 유저1 간 관계 생성
     @ManyToOne(type => User, user => user.characters)
     user: User
 }
