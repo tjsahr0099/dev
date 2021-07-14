@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { CharacterModule } from './character/character.module';
 import Path = require('path');
 import * as ormconifg from './ormconfig'
 
@@ -17,6 +18,7 @@ import * as ormconifg from './ormconfig'
     }),
     TypeOrmModule.forRoot(ormconifg),
     UserModule,
+    CharacterModule,
   ]
 })
 export class AppModule {}

@@ -29,7 +29,7 @@ export class UserController {
 
   @Patch(':id')
   async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto): Promise<string> {
-    await this.userService.update(+id, updateUserDto);
+    console.log(await this.userService.update(+id, updateUserDto));
     return Object.assign({
       data: { ...updateUserDto },
       statusCode: 201,
