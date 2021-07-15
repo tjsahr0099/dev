@@ -22,11 +22,11 @@ export class CharacterService {
 
   async create(createCharacterDto: CreateCharacterDto): Promise<void> {
 
+    //장비 초기값 생성
     await this.equipmentRepository.save(createCharacterDto.equipment);
 
+    //스텟 초기값 생성 -> 추후 초기 케릭터 정보에 따라 서비스 로직 추가될지도?
     await this.statusRepository.save(createCharacterDto.status);
-
-    console.log(createCharacterDto);
 
     await this.characterRepository.save(createCharacterDto);
   }
@@ -36,7 +36,7 @@ export class CharacterService {
   }
 
   findOne(id: string): Promise<Character> {
-    
+
     return this.characterRepository
     .createQueryBuilder('character')
     .leftJoinAndSelect('character.equipment', 'equipment')
