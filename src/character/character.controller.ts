@@ -8,8 +8,7 @@ export class CharacterController {
   constructor(private readonly characterService: CharacterService) {}
 
   @Post()
-  async create(@Body() createCharacterDto: CreateCharacterDto) {
-    console.log(createCharacterDto);
+  async create(@Body() createCharacterDto: CreateCharacterDto) {    
     await this.characterService.create(createCharacterDto);
     return Object.assign({
       data: { ...createCharacterDto },

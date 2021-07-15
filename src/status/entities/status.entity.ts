@@ -1,5 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, OneToOne, JoinColumn} from "typeorm";
 import { CommonEntity } from "src/common/entity/common.entity";
+import { Character } from "src/character/entities/character.entity";
 
 @Entity()
 export class Status extends CommonEntity{
@@ -21,5 +22,7 @@ export class Status extends CommonEntity{
         default: 0 
     })
     life: number;
+
+    character: Character;
 
 }

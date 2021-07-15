@@ -34,13 +34,13 @@ export class Character extends CommonEntity  {
     @ManyToOne(type => User, user => user.characters)
     user: User
 
-    //케릭터1 - 장비1 간 관계 생성
-    @OneToOne(type => Character, character => character.equipment)
+    //캐릭터1 - 장비1 간 관계 생성
+    @OneToOne(type => Equipment, equipment => equipment.character)
     @JoinColumn()
     equipment: Equipment
 
-    //케릭터1 - 장비1 간 관계 생성
-    @OneToOne(type => Character, character => character.status)
+    //케릭터1 - 스텟1 간 관계 생성
+    @OneToOne(type => Status, status => status.character)
     @JoinColumn()
     status: Status
 }
