@@ -5,8 +5,8 @@ import { Character } from "src/character/entities/character.entity";
 @Entity()
 export class User extends CommonEntity {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Column({
         length: 20

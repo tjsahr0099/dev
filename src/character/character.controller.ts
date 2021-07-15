@@ -25,12 +25,12 @@ export class CharacterController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.characterService.findOne(+id);
+    return this.characterService.findOne(id);
   }
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCharacterDto: UpdateCharacterDto) {
-    await this.characterService.update(+id, updateCharacterDto);
+    await this.characterService.update(id, updateCharacterDto);
     return Object.assign({
       data: { ...updateCharacterDto },
       statusCode: 201,
@@ -40,7 +40,7 @@ export class CharacterController {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    await  this.characterService.remove(+id);
+    await  this.characterService.remove(id);
     return Object.assign({
       data: { id: id },
       statusCode: 201,

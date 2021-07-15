@@ -27,13 +27,13 @@ export class UserController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.userService.findOne(+id);
+  findOne(@Param('id') id: string) {
+    return this.userService.findOne(id);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto): Promise<string> {
-    await this.userService.update(+id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<string> {
+    await this.userService.update(id, updateUserDto);
     return Object.assign({
       data: { ...updateUserDto },
       statusCode: 201,
@@ -42,8 +42,8 @@ export class UserController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: number): Promise<string> {
-    await this.userService.remove(+id);
+  async remove(@Param('id') id: string): Promise<string> {
+    await this.userService.remove(id);
     return Object.assign({
       data: { id: id },
       statusCode: 201,

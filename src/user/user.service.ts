@@ -29,7 +29,7 @@ export class UserService {
     return this.userRepository.find();
   }
 
-  findOne(id: number): Promise<User> {
+  findOne(id: string): Promise<User> {
 
     
       
@@ -44,11 +44,11 @@ export class UserService {
     
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: string, updateUserDto: UpdateUserDto) {
     await this.userRepository.update({ id: id }, updateUserDto);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     await this.userRepository.delete({ id: id });
   }
 }

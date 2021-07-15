@@ -20,15 +20,15 @@ export class CharacterService {
     return this.characterRepository.find();
   }
 
-  findOne(id: number): Promise<Character> {
+  findOne(id: string): Promise<Character> {
     return this.characterRepository.findOne({ id: id });
   }
 
-  async update(id: number, updateCharacterDto: UpdateCharacterDto) {
+  async update(id: string, updateCharacterDto: UpdateCharacterDto) {
     await this.characterRepository.update({ id: id }, updateCharacterDto);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     await this.characterRepository.delete({ id: id });
   }
 
