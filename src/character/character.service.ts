@@ -6,6 +6,10 @@ import { Character } from './entities/character.entity';
 import { Repository } from 'typeorm/index';
 import { Equipment } from 'src/equipment/entities/equipment.entity';
 import { Status } from 'src/status/entities/status.entity';
+import { StatusService } from 'src/status/status.service';
+import { CreateEquipmentDto } from 'src/equipment/dto/create-equipment.dto';
+import { CreateStatusDto } from 'src/status/dto/create-status.dto';
+
 
 @Injectable()
 export class CharacterService {
@@ -13,22 +17,33 @@ export class CharacterService {
   constructor(
     @InjectRepository(Character) private characterRepository: Repository<Character> ,
     @InjectRepository(Equipment) private equipmentRepository: Repository<Equipment> ,
-    @InjectRepository(Status) private statusRepository: Repository<Status>
+    private readonly statusService: StatusService
     ){
     this.characterRepository = characterRepository;
     this.equipmentRepository = equipmentRepository;
-    this.statusRepository = statusRepository;
+    this.statusService = statusService;
   }
 
   async create(createCharacterDto: CreateCharacterDto): Promise<void> {
 
+    const character = await this.characterRepository.save(createCharacterDto);
+    
     //장비 초기값 생성
+    // const createEquipmentDto = new CreateEquipmentDto();    
+    // createEquipmentDto.character = createCharacterDto;   
+    createCharacterDto.equipment = new CreateEquipmentDto();
     await this.equipmentRepository.save(createCharacterDto.equipment);
+    
+    //스텟 초기값 생성
+    // const createStatusDto = new CreateStatusDto();    
+    // createCharacterDto = createStatusDto.character;
+    createCharacterDto.status = new CreateStatusDto();
+    await this.statusService.create(createCharacterDto.status);
 
-    //스텟 초기값 생성 -> 추후 초기 케릭터 정보에 따라 서비스 로직 추가될지도?
-    await this.statusRepository.save(createCharacterDto.status);
-
-    await this.characterRepository.save(createCharacterDto);
+    const updateCharacterDto = createCharacterDto;        
+    
+    // updateStatusDto = createCharacterDto;
+    this.update(character.id, updateCharacterDto);
   }
 
   findAll(): Promise<Character[]>{
@@ -39,10 +54,14 @@ export class CharacterService {
 
     return this.characterRepository
     .createQueryBuilder('character')
-    .leftJoinAndSelect('character.equipment', 'equipment')
-    .leftJoinAndSelect('character.status', 'status')
+    .leftJoinAndSelect('character.equipment','equipment')
+    .leftJoinAndSelect('character.status','status')
+    .leftJoinAndSelect('status.nowstatus','nowstatus')
     .where('character.id = :id',{ id: id })
     .getOne();
+
+    // .leftJoinAndSelect('character.equipment', 'equipment')
+    // .leftJoinAndSelect('character.status', 'status')
 
     // return this.characterRepository.findOne({ id: id });
   }

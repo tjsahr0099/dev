@@ -1,20 +1,19 @@
 import { IsNumber, IsOptional, IsString, IsObject } from "class-validator";
-import { Equipment } from "src/equipment/entities/equipment.entity";
-import { Status } from "src/status/entities/status.entity";
-import { User } from "src/user/entities/user.entity";
+import { CreateEquipmentDto } from "src/equipment/dto/create-equipment.dto"; 
+import { CreateStatusDto } from "src/status/dto/create-status.dto";
+import { CreateUserDto } from "src/user/dto/create-user.dto";
 
 export class CreateCharacterDto {
 
     @IsString()
-    readonly name: string;
+    readonly name?: string;
 
     @IsObject()
-    readonly user: User;
+    readonly user: CreateUserDto;
 
-    @IsObject()
-    readonly equipment: Equipment;
+    equipment?: CreateEquipmentDto;
 
-    @IsObject()
-    readonly status: Status;
+    status?: CreateStatusDto;
+    
     
 }

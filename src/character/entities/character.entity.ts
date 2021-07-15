@@ -10,37 +10,20 @@ export class Character extends CommonEntity  {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    // @Column({
-    //     name: "user_id"
-    // })
-    // userId: number;
-
     @Column({
         length: 20
     })
     name: string;
-
-    @Column({      
-        default: 0 
-    })
-    level: number;
-
-    @Column({       
-        default: 0
-    })
-    exp: number;
  
     //캐릭터N - 유저1 간 관계 생성
     @ManyToOne(type => User, user => user.characters)
     user: User
 
-    //캐릭터1 - 장비1 간 관계 생성
-    @OneToOne(type => Equipment, equipment => equipment.character)
+    @OneToOne(type => Equipment, equipment => equipment.character)    
     @JoinColumn()
     equipment: Equipment
 
-    //케릭터1 - 스텟1 간 관계 생성
-    @OneToOne(type => Status, status => status.character)
+    @OneToOne(type => Status, status => status.character)    
     @JoinColumn()
     status: Status
 }
