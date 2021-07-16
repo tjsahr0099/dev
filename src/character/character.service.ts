@@ -9,6 +9,8 @@ import { Status } from 'src/status/entities/status.entity';
 import { StatusService } from 'src/status/status.service';
 import { CreateEquipmentDto } from 'src/equipment/dto/create-equipment.dto';
 import { CreateStatusDto } from 'src/status/dto/create-status.dto';
+import { CreateInventoryDto } from 'src/inventory/dto/create-inventory.dto';
+import { InventoryMaster } from 'src/inventory/entities/inventory-master.entity';
 
 
 @Injectable()
@@ -17,10 +19,12 @@ export class CharacterService {
   constructor(
     @InjectRepository(Character) private characterRepository: Repository<Character> ,
     @InjectRepository(Equipment) private equipmentRepository: Repository<Equipment> ,
+    @InjectRepository(InventoryMaster) private inventoryRepository: Repository<InventoryMaster> ,
     private readonly statusService: StatusService
     ){
     this.characterRepository = characterRepository;
     this.equipmentRepository = equipmentRepository;
+    this.inventoryRepository = inventoryRepository;
     this.statusService = statusService;
   }
 
@@ -29,20 +33,19 @@ export class CharacterService {
     const character = await this.characterRepository.save(createCharacterDto);
     
     //장비 초기값 생성
-    // const createEquipmentDto = new CreateEquipmentDto();    
-    // createEquipmentDto.character = createCharacterDto;   
     createCharacterDto.equipment = new CreateEquipmentDto();
     await this.equipmentRepository.save(createCharacterDto.equipment);
     
     //스텟 초기값 생성
-    // const createStatusDto = new CreateStatusDto();    
-    // createCharacterDto = createStatusDto.character;
     createCharacterDto.status = new CreateStatusDto();
     await this.statusService.create(createCharacterDto.status);
 
-    const updateCharacterDto = createCharacterDto;        
-    
-    // updateStatusDto = createCharacterDto;
+    //인벤토리 마스터 초기값 생성
+    createCharacterDto.inventory = new CreateInventoryDto();
+    await this.inventoryRepository.save(createCharacterDto.inventory);
+
+    //캐릭터에 외부키 업데이트
+    const updateCharacterDto = createCharacterDto;            
     this.update(character.id, updateCharacterDto);
   }
 

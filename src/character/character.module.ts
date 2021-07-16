@@ -8,6 +8,7 @@ import { Status } from 'src/status/entities/status.entity';
 import { StatusService } from 'src/status/status.service';
 import { NowStatus } from 'src/status/entities/now-status.entity';
 import { StatusModule } from 'src/status/status.module';
+import { InventoryMaster } from 'src/inventory/entities/inventory-master.entity';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { StatusModule } from 'src/status/status.module';
     TypeOrmModule.forFeature([Character]),
     TypeOrmModule.forFeature([Equipment]),
     TypeOrmModule.forFeature([Status]),
-    TypeOrmModule.forFeature([NowStatus])
+    TypeOrmModule.forFeature([NowStatus]),
+    TypeOrmModule.forFeature([InventoryMaster]),
   ],
   controllers: [CharacterController],
   providers: [CharacterService,StatusService]

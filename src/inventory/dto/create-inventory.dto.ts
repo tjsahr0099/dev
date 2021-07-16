@@ -3,18 +3,21 @@ import { IsNumber, IsString } from "class-validator";
 export class CreateInventoryDto {
 
     @IsString()
-    inventoryId: string;
+    id?: string;
+
+    @IsString()
+    inventoryId?: string;
     
     @IsString()
-    itemId: string;
+    itemId?: string;
 
     @IsNumber()
-    cnt: number;
+    cnt?: number;
 
     @IsNumber()
-    x: number;
+    x?: number;
 
     @IsNumber()
-    y: number;
+    y?: number;
 
 }
