@@ -18,7 +18,7 @@ export class InventoryItem extends CommonEntity{
     itemId: string;
 
     @Column()
-    size: number;
+    cnt: number;
 
     @ManyToOne(type => InventoryMaster, inventory => inventory.id)
     inventory: InventoryMaster;

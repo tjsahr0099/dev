@@ -36,4 +36,7 @@ const config: ConnectionOptions = {
       migrationsDir: 'src/migrations',
   },
 };
+
+console.log(config.entities);
+
 export = config
