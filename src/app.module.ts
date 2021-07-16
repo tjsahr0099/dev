@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { CharacterModule } from './character/character.module';
 import { EquipmentModule } from './equipment/equipment.module';
 import { StatusModule } from './status/status.module';
+import { InventoryModule } from './inventory/inventory.module';
 import Path = require('path');
 import * as ormconifg from './ormconfig'
 
@@ -23,6 +24,7 @@ import * as ormconifg from './ormconfig'
     CharacterModule,
     EquipmentModule,
     StatusModule,
+    InventoryModule,
   ]
 })
 export class AppModule {}
