@@ -8,6 +8,7 @@ import { CharacterModule } from './character/character.module';
 import { EquipmentModule } from './equipment/equipment.module';
 import { StatusModule } from './status/status.module';
 import { InventoryModule } from './inventory/inventory.module';
+import { ItemDictionaryModule } from './item-dictionary/item-dictionary.module';
 import Path = require('path');
 import * as ormconifg from './ormconfig'
 
@@ -25,6 +26,7 @@ import * as ormconifg from './ormconfig'
     EquipmentModule,
     StatusModule,
     InventoryModule,
+    ItemDictionaryModule,
   ]
 })
 export class AppModule {}
