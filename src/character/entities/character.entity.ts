@@ -4,6 +4,7 @@ import { User } from "src/user/entities/user.entity";
 import { Equipment } from "src/equipment/entities/equipment.entity";
 import { Status } from "src/status/entities/status.entity";
 import { InventoryMaster } from "src/inventory/entities/inventory-master.entity";
+import { InventoryItem } from "src/inventory/entities/inventory-item.entity";
 
 @Entity()
 export class Character extends CommonEntity  {
@@ -28,7 +29,8 @@ export class Character extends CommonEntity  {
     @JoinColumn()
     status: Status;
 
-    @OneToOne(type => InventoryMaster, inventory => inventory.id)    
+    @OneToOne(type => InventoryMaster, inventory => inventory.items)    
     @JoinColumn()
     inventory: InventoryMaster;
+
 }

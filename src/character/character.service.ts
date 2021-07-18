@@ -12,6 +12,7 @@ import { CreateStatusDto } from 'src/status/dto/create-status.dto';
 import { CreateInventoryDto } from 'src/inventory/dto/create-inventory.dto';
 import { InventoryMaster } from 'src/inventory/entities/inventory-master.entity';
 import { CreateInventoryMasterDto } from 'src/inventory/dto/create-inventory-master.dto';
+import { InventoryItem } from 'src/inventory/entities/inventory-item.entity';
 
 
 @Injectable()
@@ -21,11 +22,13 @@ export class CharacterService {
     @InjectRepository(Character) private characterRepository: Repository<Character> ,
     @InjectRepository(Equipment) private equipmentRepository: Repository<Equipment> ,
     @InjectRepository(InventoryMaster) private inventoryRepository: Repository<InventoryMaster> ,
+    @InjectRepository(InventoryItem) private inventoryItemRepository: Repository<InventoryItem> ,
     private readonly statusService: StatusService
     ){
     this.characterRepository = characterRepository;
     this.equipmentRepository = equipmentRepository;
     this.inventoryRepository = inventoryRepository;
+    this.inventoryItemRepository = inventoryItemRepository;
     this.statusService = statusService;
   }
 
@@ -54,16 +57,33 @@ export class CharacterService {
     return this.characterRepository.find();
   }
 
-  findOne(id: string): Promise<Character> {
+  async findOne(id: string): Promise<Character> {
 
-    return this.characterRepository
+    const character = await this.characterRepository
     .createQueryBuilder('character')
     .leftJoinAndSelect('character.equipment','equipment')
     .leftJoinAndSelect('character.status','status')
-    .leftJoinAndSelect('status.nowstatus','nowstatus')
-    .leftJoinAndSelect('character.inventory','inventory')
+    .leftJoinAndSelect('status.nowstatus','nowstatus')    
+    .leftJoinAndSelect('character.inventory','inventory')    
     .where('character.id = :id',{ id: id })
     .getOne();
+
+    console.log("1");
+
+    character.inventory.items = await this.inventoryItemRepository
+    .createQueryBuilder('inventoryItem')      
+    .where('inventoryItem.inventoryId = :id',{ id: character.inventory.id })
+    .getMany();
+    
+    // character.inventory.items.forEach(item=>{
+    //   item.createDate = undefined;
+    //   item.updateDate = undefined;
+    //   item.inventoryId = undefined;
+    // });
+
+    console.log(character);
+
+    return character;
 
     // .leftJoinAndSelect('character.equipment', 'equipment')
     // .leftJoinAndSelect('character.status', 'status')
