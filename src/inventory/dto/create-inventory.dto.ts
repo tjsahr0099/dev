@@ -2,9 +2,11 @@ import { IsNumber, IsString } from "class-validator";
 
 export class CreateInventoryDto {
 
+    //캐릭터 아이디
     @IsString()
-    id?: string;
+    characterId?: string;
 
+    //인벤토리 마스터 아이디
     @IsString()
     inventoryId?: string;
     
@@ -14,10 +16,10 @@ export class CreateInventoryDto {
     @IsNumber()
     cnt?: number;
 
-    @IsNumber()
+    
     x?: number;
 
-    @IsNumber()
+    
     y?: number;
 
 }

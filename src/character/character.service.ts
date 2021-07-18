@@ -11,6 +11,7 @@ import { CreateEquipmentDto } from 'src/equipment/dto/create-equipment.dto';
 import { CreateStatusDto } from 'src/status/dto/create-status.dto';
 import { CreateInventoryDto } from 'src/inventory/dto/create-inventory.dto';
 import { InventoryMaster } from 'src/inventory/entities/inventory-master.entity';
+import { CreateInventoryMasterDto } from 'src/inventory/dto/create-inventory-master.dto';
 
 
 @Injectable()
@@ -41,7 +42,7 @@ export class CharacterService {
     await this.statusService.create(createCharacterDto.status);
 
     //인벤토리 마스터 초기값 생성
-    createCharacterDto.inventory = new CreateInventoryDto();
+    createCharacterDto.inventory = new CreateInventoryMasterDto();
     await this.inventoryRepository.save(createCharacterDto.inventory);
 
     //캐릭터에 외부키 업데이트
@@ -60,6 +61,7 @@ export class CharacterService {
     .leftJoinAndSelect('character.equipment','equipment')
     .leftJoinAndSelect('character.status','status')
     .leftJoinAndSelect('status.nowstatus','nowstatus')
+    .leftJoinAndSelect('character.inventory','inventory')
     .where('character.id = :id',{ id: id })
     .getOne();
 

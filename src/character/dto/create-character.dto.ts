@@ -1,5 +1,6 @@
 import { IsNumber, IsOptional, IsString, IsObject } from "class-validator";
 import { CreateEquipmentDto } from "src/equipment/dto/create-equipment.dto"; 
+import { CreateInventoryMasterDto } from "src/inventory/dto/create-inventory-master.dto";
 import { CreateInventoryDto } from "src/inventory/dto/create-inventory.dto";
 import { CreateStatusDto } from "src/status/dto/create-status.dto";
 import { CreateUserDto } from "src/user/dto/create-user.dto";
@@ -16,7 +17,7 @@ export class CreateCharacterDto {
 
     status?: CreateStatusDto;
 
-    inventory?: CreateInventoryDto;
+    inventory?: CreateInventoryMasterDto;
     
     
 }
