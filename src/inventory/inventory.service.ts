@@ -27,8 +27,11 @@ export class InventoryService {
   async saveItem(createInventoryDto: CreateInventoryDto){
 
     const item = await this.findfirstEmptyInventorySpace(createInventoryDto);
-    console.log(item);
+
+    console.log("=========DB SAVE START==========")    
+    console.log(item.saveItem);    
     await this.inventoryItemRepository.save(item.saveItem);    
+    console.log("=========DB SAVE END============")
    
     if(item.remainItem!=null){
       return await this.saveItem(item.remainItem);
@@ -53,35 +56,43 @@ export class InventoryService {
     let x = 0;
     let y = 0;
 
-    // 아.. 디비에 저장하지 않으면 여기가 꼬인다..
+    console.log("======인벤토리 중복 아이템 체크 시작=========");
     const existSameItems = await this.findByItemId(dictionaryId);
 
     console.log("existSameItems.length : " + existSameItems.length)
 
     //습득한 아이템이 인벤토리에 있으면 가장 위 아이템에 +적재
     if(existSameItems.length!=0){      
-      console.log("습득한 아이템과 현재 포지션의 아이템의 아이디가 같으면 해당 칸에 적재");
-
+      
       x = existSameItems[0].x;
       y = existSameItems[0].y;
+
+      console.log("습득한 아이템이 인벤토리에 존재함 x:"+x+" y:"+y);
 
       // max size 계산
       const calresult = await this.calMaxSize(dictionaryId, inputItemCnt, existSameItems[0].cnt);
 
-      const saveItem = createInventoryDto;
+      const saveItem = Object.assign({}, createInventoryDto);
+      console.log("1",JSON.parse(JSON.stringify(saveItem)));
       saveItem.x = x;
       saveItem.y = y;
       saveItem.cnt = calresult.saveCnt;
       saveItem.dictionary = itemDic;
+      console.log("2",JSON.parse(JSON.stringify(saveItem)));
 
-      if(calresult.remainCnt!=0){
+      if(calresult.remainCnt!=0){        
         createInventoryDto.cnt = calresult.remainCnt;
-        return { saveItem: saveItem, remainItem: Object.assign([], createInventoryDto) };
+        console.log("======인벤토리 중복 아이템 체크 종료1=========");
+        return { saveItem: saveItem, remainItem: Object.assign({}, createInventoryDto) };
       }else{        
+        console.log("======인벤토리 중복 아이템 체크 종료2=========");
         return { saveItem: saveItem, remainItem: null };
       }
        
     }
+
+    
+    console.log("======인벤토리 빈칸 체크 시작========");
 
     const items = await this.findById(inventoryId);
     // let counter = 0;
@@ -116,7 +127,7 @@ export class InventoryService {
     // max size 계산
     const calresult = await this.calMaxSize(dictionaryId, inputItemCnt, 0);
 
-    const saveItem = createInventoryDto;
+    const saveItem = Object.assign({}, createInventoryDto);
     saveItem.x = x;
     saveItem.y = y;
     saveItem.cnt = calresult.saveCnt;
@@ -124,29 +135,32 @@ export class InventoryService {
 
     if(calresult.remainCnt!=0){      
       createInventoryDto.cnt = calresult.remainCnt;
-      return { saveItem: saveItem, remainItem: Object.assign([], createInventoryDto) };
+      console.log("======인벤토리 빈칸 체크 종료1========");
+      return { saveItem: saveItem, remainItem: Object.assign({}, createInventoryDto) };
     }else{        
+      console.log("======인벤토리 빈칸 체크 종료2========");
       return { saveItem: saveItem, remainItem: null };
     }
-
+    
   }
   
   async calMaxSize(dictionaryId: string, inputItemCnt: number, existItemCnt: number) {
 
     const itemDictionary = await this.itemDictionaryService.findOne(dictionaryId);
     let remainCnt = 0;
+    let saveCnt = 0;
     // max size 계산
     const maxStackSize = itemDictionary.maxStackSize;
     if(maxStackSize < inputItemCnt + existItemCnt ){
-      console.log("아이템이 맥스사이즈를 넘음");
       remainCnt = inputItemCnt + existItemCnt - maxStackSize;
-      inputItemCnt = maxStackSize;
+      saveCnt = maxStackSize;
+      console.log("아이템이 맥스사이즈를 넘음. saveCnt:"+saveCnt+" remainCnt:"+remainCnt);
       
     }else{
-      inputItemCnt = inputItemCnt + existItemCnt;      
+      saveCnt = inputItemCnt + existItemCnt;      
     }
 
-    return { saveCnt: inputItemCnt, remainCnt: remainCnt };
+    return { saveCnt: saveCnt, remainCnt: remainCnt };
   }
 
   async findById(inventoryId: string): Promise<InventoryItem[]>{
