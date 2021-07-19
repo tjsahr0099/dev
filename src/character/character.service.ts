@@ -72,8 +72,12 @@ export class CharacterService {
 
     character.inventory.items = await this.inventoryItemRepository
     .createQueryBuilder('inventoryItem')      
-    .where('inventoryItem.inventoryId = :id',{ id: character.inventory.id })
+    .where('inventoryItem.inventoryId = :id',{ id: character.inventory.id })    
+    .innerJoinAndSelect('inventoryItem.dictionary','dictionary')
+    .orderBy('y','ASC').addOrderBy('x','ASC')    
     .getMany();
+
+    
     
     // character.inventory.items.forEach(item=>{
     //   item.createDate = undefined;

@@ -4,15 +4,17 @@ import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColu
 export abstract class CommonEntity {
 
     @CreateDateColumn({
-      name: "create_date"
+      name: "create_date",
+      select: false
     })
-    @Column({ select: false })
+    // @Column({ select: false })
     createDate: Date;
 
     @UpdateDateColumn({
-      name: "update_date"
+      name: "update_date",
+      select: false
     })
-    @Column({ select: false })
+    // @Column({ select: false })
     updateDate: Date;
     
   }

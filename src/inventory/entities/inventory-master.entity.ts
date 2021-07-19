@@ -9,7 +9,6 @@ export class InventoryMaster extends CommonEntity{
     id: string;
 
     @OneToMany(type => InventoryItem, items => items.inventoryId)        
-    @JoinColumn({ name: 'inventoryId' })
     items: InventoryItem[]
 
 }

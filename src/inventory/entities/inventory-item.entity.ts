@@ -1,13 +1,16 @@
 import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, ManyToOne, JoinColumn} from "typeorm";
 import { CommonEntity } from "src/common/entity/common.entity";
 import { InventoryMaster } from "./inventory-master.entity";
-import { Exclude } from "class-transformer";
+import { ItemDictionary } from "src/item-dictionary/entities/item-dictionary.entity";
 
 @Entity()
 export class InventoryItem extends CommonEntity{
 
     @PrimaryColumn()
-    @Column({ select: false })
+    @Column({
+        select: false,
+        length: 36
+     })
     inventoryId: string;
 
     @PrimaryColumn()
@@ -17,11 +20,11 @@ export class InventoryItem extends CommonEntity{
     y: number;
 
     @Column()
-    itemId: string;
-
-    @Column()
     cnt: number;
 
-    @ManyToOne(type => InventoryMaster, inventory => inventory.items)
+    @ManyToOne(type => InventoryMaster, inventory => inventory.id)
     inventory: InventoryMaster;
+
+    @ManyToOne(type => ItemDictionary, dictionary => dictionary.items)
+    dictionary: ItemDictionary;
 }
