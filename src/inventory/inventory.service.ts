@@ -4,6 +4,7 @@ import { commonConst } from 'src/common/const/common.const';
 import { CreateItemDictionaryDto } from 'src/item-dictionary/dto/create-item-dictionary.dto';
 import { ItemDictionary } from 'src/item-dictionary/entities/item-dictionary.entity';
 import { ItemDictionaryService } from 'src/item-dictionary/item-dictionary.service';
+import { CreateItemDto } from 'src/item/dto/create-item.dto';
 import { EntityManager, Repository } from 'typeorm';
 import { CreateInventoryDto } from './dto/create-inventory.dto';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
@@ -47,8 +48,8 @@ export class InventoryService {
     const dictionaryId = createInventoryDto.dictionaryId;
     const inputItemCnt = createInventoryDto.cnt;
 
-    let itemDic = new CreateItemDictionaryDto();
-    itemDic.id = dictionaryId;
+    let item = new CreateItemDto();
+    item.id = dictionaryId;
 
     const maxX = commonConst.maxInventoryXSize;
     const maxY = commonConst.maxInventoryYSize;
@@ -77,7 +78,7 @@ export class InventoryService {
       saveItem.x = x;
       saveItem.y = y;
       saveItem.cnt = calresult.saveCnt;
-      saveItem.dictionary = itemDic;
+      saveItem.item = item;
       console.log("2",JSON.parse(JSON.stringify(saveItem)));
 
       if(calresult.remainCnt!=0){        
@@ -131,7 +132,7 @@ export class InventoryService {
     saveItem.x = x;
     saveItem.y = y;
     saveItem.cnt = calresult.saveCnt;
-    saveItem.dictionary = itemDic;
+    saveItem.item = item;
 
     if(calresult.remainCnt!=0){      
       createInventoryDto.cnt = calresult.remainCnt;

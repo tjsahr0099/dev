@@ -2,6 +2,7 @@ import {Entity, PrimaryGeneratedColumn, Column, PrimaryColumn, ManyToOne, JoinCo
 import { CommonEntity } from "src/common/entity/common.entity";
 import { InventoryMaster } from "./inventory-master.entity";
 import { ItemDictionary } from "src/item-dictionary/entities/item-dictionary.entity";
+import { Item } from "src/item/entities/item.entity";
 
 @Entity()
 export class InventoryItem extends CommonEntity{
@@ -25,6 +26,6 @@ export class InventoryItem extends CommonEntity{
     @ManyToOne(type => InventoryMaster, inventory => inventory.id)
     inventory: InventoryMaster;
 
-    @ManyToOne(type => ItemDictionary, dictionary => dictionary.items)
-    dictionary: ItemDictionary;
+    @ManyToOne(type => Item, item => item.inventoryItems)
+    item: Item;
 }

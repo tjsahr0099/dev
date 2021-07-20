@@ -1,5 +1,6 @@
 import { CommonEntity } from "src/common/entity/common.entity";
 import { InventoryItem } from "src/inventory/entities/inventory-item.entity";
+import { Item } from "src/item/entities/item.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -29,7 +30,7 @@ export class ItemDictionary extends CommonEntity{
     })
     name: string;
 
-    @OneToMany(type => InventoryItem, items => items.dictionary)        
-    items: InventoryItem[]
+    @OneToMany(type => Item, items => items.dictionary)        
+    items: Item[]
 
 }
