@@ -1,20 +1,23 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsEnum, IsNumber, IsOptional, IsString, notContains } from "class-validator";
+import { CLASS, MAX_STACK_SIZE, SUB_CLASS } from "src/common/enum/common.enum";
 
 export class CreateItemDictionaryDto {
     
     @IsString()
+    @IsOptional()
     id?: string;
 
-    @IsString()
+    @IsEnum(CLASS)
     class: string;
 
-    @IsString()
+    @IsEnum(SUB_CLASS)
     subClass?: string;
 
-    @IsNumber()
+    @IsNumber() //자동생성
+    @IsOptional()    
     no: number;
 
-    @IsNumber()
+    @IsEnum(MAX_STACK_SIZE)
     maxStackSize: number;
 
     @IsString()

@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { exception } from 'console';
+import { CLASS, SUB_CLASS } from 'src/common/enum/common.enum';
+import { CustomError } from 'src/common/error/common.error';
 import { Repository } from 'typeorm';
 import { CreateItemDictionaryDto } from './dto/create-item-dictionary.dto';
 import { UpdateItemDictionaryDto } from './dto/update-item-dictionary.dto';
@@ -15,28 +18,50 @@ export class ItemDictionaryService {
   }
 
   async create(createItemDictionaryDto: CreateItemDictionaryDto) {
-    return await this.itemDictionaryRepository.save(createItemDictionaryDto);
+
+    //todo : 중복이름체크 => 업데이트도    
+
+    const itemDictionary = await this.findOneBySubKeys(createItemDictionaryDto.class,createItemDictionaryDto.subClass);
+
+    throw new CustomError();
+
+    console.log("=============번호증가작업시작===========");
+    console.log("이전번호item",itemDictionary);
+    
+    itemDictionary!=null ? (createItemDictionaryDto.no = itemDictionary.no+1) : createItemDictionaryDto.no = 1 ;
+
+    console.log("현재번호item",createItemDictionaryDto);
+    console.log("=============번호증가작업끝=============");
+
+    return await this.itemDictionaryRepository.insert(createItemDictionaryDto);
   }
 
-  findAll() {
-    return `This action returns all itemDictionary`;
+  findAll(): Promise<ItemDictionary[]>  {
+    return this.itemDictionaryRepository.find();
   }
 
-  async findOne(id: string): Promise<ItemDictionary>  {
-
-    //임시 ( 모든 스택사이즈 10)
-    let itemDictionary = new ItemDictionary();
-    itemDictionary.id = id;
-    itemDictionary.maxStackSize = 10;
-
-    return itemDictionary;
+  findOne(id: string): Promise<ItemDictionary>  {
+    return this.itemDictionaryRepository.findOne(id);
   }
 
-  update(id: string, updateItemDictionaryDto: UpdateItemDictionaryDto) {
-    return `This action updates a #${id} itemDictionary`;
+  async findOneBySubKeys(clazz: string, subClazz: string): Promise<ItemDictionary>  {
+    console.log(clazz);
+    return await this.itemDictionaryRepository
+    .createQueryBuilder('itemDictionary')
+    .where('itemDictionary.class = :clazz',{ clazz: clazz })
+    .andWhere('itemDictionary.subClass = :subClazz',{ subClazz: subClazz })
+    .orderBy('no','DESC')
+    .limit(1)
+    .getOne();
+
+    // return this.itemDictionaryRepository.findOne(id);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} itemDictionary`;
+  async update(id: string, updateItemDictionaryDto: UpdateItemDictionaryDto) {
+    return await this.itemDictionaryRepository.update(id,updateItemDictionaryDto);
+  }
+
+  async remove(id: string) {
+    return await this.itemDictionaryRepository.delete(id);
   }
 }

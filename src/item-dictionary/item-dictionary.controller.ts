@@ -9,7 +9,12 @@ export class ItemDictionaryController {
 
   @Post()
   async create(@Body() createItemDictionaryDto: CreateItemDictionaryDto) {
-    return await this.itemDictionaryService.create(createItemDictionaryDto);
+    await this.itemDictionaryService.create(createItemDictionaryDto);
+    return Object.assign({
+      data: { ...createItemDictionaryDto },
+      statusCode: 201,
+      message: `created successfully`
+    });
   }
 
   @Get()
