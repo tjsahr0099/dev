@@ -1,5 +1,6 @@
 import { IsNumber, IsObject, IsString } from "class-validator";
 import { CreateItemDictionaryDto } from "src/item-dictionary/dto/create-item-dictionary.dto";
+import { CreateItemDto } from "src/item/dto/create-item.dto";
 
 export class CreateInventoryDto {
 
@@ -21,6 +22,6 @@ export class CreateInventoryDto {
     
     y?: number;
 
-    dictionary : CreateItemDictionaryDto;
+    item : CreateItemDto;
 
 }
