@@ -30,12 +30,21 @@ export class ItemDictionaryController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateItemDictionaryDto: UpdateItemDictionaryDto) {
-    return this.itemDictionaryService.update(id, updateItemDictionaryDto);
+  async update(@Param('id') id: string, @Body() updateItemDictionaryDto: UpdateItemDictionaryDto) {
+    await this.itemDictionaryService.update(id, updateItemDictionaryDto);
+    return Object.assign({
+      data: { ...updateItemDictionaryDto },
+      statusCode: 201,
+      message: `updated successfully`
+    });
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.itemDictionaryService.remove(id);
+  async remove(@Param('id') id: string) {
+    await this.itemDictionaryService.remove(id);
+    return Object.assign({
+      statusCode: 201,
+      message: `deleted successfully`
+    });
   }
 }

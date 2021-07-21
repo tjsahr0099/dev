@@ -1,7 +1,7 @@
 import { Exclude } from "class-transformer";
 import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn} from "typeorm";
 
-export abstract class CommonEntity {
+export  class CommonEntity {
 
     @CreateDateColumn({
       name: "create_date",

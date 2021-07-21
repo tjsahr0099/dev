@@ -23,8 +23,6 @@ export class ItemDictionaryService {
 
     const itemDictionary = await this.findOneBySubKeys(createItemDictionaryDto.class,createItemDictionaryDto.subClass);
 
-    throw new CustomError();
-
     console.log("=============번호증가작업시작===========");
     console.log("이전번호item",itemDictionary);
     
@@ -49,7 +47,8 @@ export class ItemDictionaryService {
     return await this.itemDictionaryRepository
     .createQueryBuilder('itemDictionary')
     .where('itemDictionary.class = :clazz',{ clazz: clazz })
-    .andWhere('itemDictionary.subClass = :subClazz',{ subClazz: subClazz })
+    .andWhere('itemDictionary.subClass = :subClazz',{ subClazz: subClazz })        
+    .withDeleted()
     .orderBy('no','DESC')
     .limit(1)
     .getOne();
@@ -62,6 +61,6 @@ export class ItemDictionaryService {
   }
 
   async remove(id: string) {
-    return await this.itemDictionaryRepository.delete(id);
+    return await this.itemDictionaryRepository.softDelete(id);
   }
 }
