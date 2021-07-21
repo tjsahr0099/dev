@@ -45,7 +45,7 @@ export class InventoryService {
   async findfirstEmptyInventorySpace(createInventoryDto: CreateInventoryDto){
 
     const inventoryId = createInventoryDto.inventoryId;
-    const dictionaryId = createInventoryDto.dictionaryId;
+    const dictionaryId = createInventoryDto.item.dictionaryId;
     const inputItemCnt = createInventoryDto.cnt;
 
     let item = new CreateItemDto();

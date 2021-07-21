@@ -1,10 +1,12 @@
+import { IntersectionType } from "@nestjs/swagger";
 import { CommonEntity } from "src/common/entity/common.entity";
+import { CommonDeleteEntity } from "src/common/entity/common.delete.entity";
 import { InventoryItem } from "src/inventory/entities/inventory-item.entity";
 import { Item } from "src/item/entities/item.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class ItemDictionary extends CommonEntity{
+export class ItemDictionary extends CommonDeleteEntity{
 
     @PrimaryGeneratedColumn('uuid')
     id: string;

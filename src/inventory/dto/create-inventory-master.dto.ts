@@ -1,9 +1,10 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNumber, IsString } from "class-validator";
 
 export class CreateInventoryMasterDto {
   
-    //인벤토리 마스터 아이디
     @IsString()
+    @ApiProperty({ description: '인벤토리아이디' })
     id?: string;
 
 }

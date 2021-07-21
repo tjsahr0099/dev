@@ -3,8 +3,10 @@ import { InventoryService } from './inventory.service';
 import { CreateInventoryDto } from './dto/create-inventory.dto';
 import { UpdateInventoryDto } from './dto/update-inventory.dto';
 import { getManager } from 'typeorm';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('inventory')
+@ApiTags('인벤토리')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
