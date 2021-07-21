@@ -13,6 +13,7 @@ import { CreateInventoryDto } from 'src/inventory/dto/create-inventory.dto';
 import { InventoryMaster } from 'src/inventory/entities/inventory-master.entity';
 import { CreateInventoryMasterDto } from 'src/inventory/dto/create-inventory-master.dto';
 import { InventoryItem } from 'src/inventory/entities/inventory-item.entity';
+import { CustomError } from 'src/common/error/common.error';
 
 
 @Injectable()
@@ -70,10 +71,14 @@ export class CharacterService {
 
     console.log("1");
 
+    if(character==null){
+      throw new CustomError("케릭터 미존재");
+    }
+
     character.inventory.items = await this.inventoryItemRepository
     .createQueryBuilder('inventoryItem')      
     .where('inventoryItem.inventoryId = :id',{ id: character.inventory.id })    
-    .innerJoinAndSelect('inventoryItem.dictionary','dictionary')
+    .innerJoinAndSelect('inventoryItem.item','item')
     .orderBy('y','ASC').addOrderBy('x','ASC')    
     .getMany();
 

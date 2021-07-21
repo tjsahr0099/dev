@@ -2,8 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ItemDictionaryService } from './item-dictionary.service';
 import { CreateItemDictionaryDto } from './dto/create-item-dictionary.dto';
 import { UpdateItemDictionaryDto } from './dto/update-item-dictionary.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('item-dictionary')
+@ApiTags('아이템사전')
 export class ItemDictionaryController {
   constructor(private readonly itemDictionaryService: ItemDictionaryService) {}
 
